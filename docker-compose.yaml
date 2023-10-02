@@ -2,21 +2,13 @@ services:
   db:
     image: postgres
     restart: always
-    secrets:
-      - db-password
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - spring-postgres
     environment:
       - POSTGRES_DB=postgres
-      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
-    expose:
-      - 5432
+      - POSTGRES_USER=postgresuser
+      - POSTGRES_PASSWORD=testpass1234!
+    ports:
+      - 5432:5432
 volumes:
   postgres_data:
-secrets:
-  db-password:
-    file: db/password.txt
-networks:
-  spring-postgres:
